@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Profesor {
     String NIFProfe;
     String FechNaProfe;
@@ -6,7 +9,12 @@ public class Profesor {
     String calle;
     String NumPostigo;
     int CodAsig;
+    ArrayList<Profesor> profesores=new ArrayList<>();
 
+
+    public Profesor(){
+
+    }
     public Profesor(String NIFProfe, String fechNaProfe, String nomComProfe, String telProfe, String calle, String numPostigo, int codAsig) {
         this.NIFProfe = NIFProfe;
         FechNaProfe = fechNaProfe;
@@ -17,16 +25,101 @@ public class Profesor {
         CodAsig = codAsig;
     }
 
+    public void menu(){
+        System.out.println("0. salir");
+        System.out.println("1. añadir nuevo profesor");
+        System.out.println("2. eliminar profesor");
+        System.out.println("3. Actualizar profesor");
+        System.out.println("4. Buscar profe por nif");
+        System.out.println("5 imprimir lista de profesores");
+    }
+
+    private int findProfe(Profesor po){
+        if (profesores.contains(po)){
+            return profesores.indexOf(po);
+        }
+        return -1;
+    }
+
+    private int findProfe(String nifProfe){
+        if (profesores.equals(nifProfe)){
+            return 1;
+        }
+        return -1;
+    }
+
+    public boolean addNewProfe(Profesor pro){
+        if (findProfe(pro)<=0){
+            profesores.add(pro);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean updateProfe(Profesor antiguo,Profesor nuevo){
+        if (findProfe(antiguo)>=0){
+            if (findProfe(nuevo)<=0){
+                profesores.remove(antiguo);
+                profesores.add(nuevo);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public boolean removeProfe(Profesor poo){
+        if (findProfe(poo)>=0){
+            profesores.remove(poo);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Profesor queryProfe(String nif){
+        for (Profesor co:profesores){
+            if (nif.equals(co.getNIFProfe())){
+                return co;
+            }
+        }
+        return null;
+    }
+
+    public void printProfes(){
+        int cont=1;
+        System.out.println("Lista de profesores");
+        for (Profesor pro:profesores){
+            System.out.println(cont+" "+pro);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Profesor{" +
+                "NIFProfe='" + NIFProfe + '\'' +
+                ", FechNaProfe='" + FechNaProfe + '\'' +
+                ", NomComProfe='" + NomComProfe + '\'' +
+                ", TelProfe='" + TelProfe + '\'' +
+                ", calle='" + calle + '\'' +
+                ", NumPostigo='" + NumPostigo + '\'' +
+                ", CodAsig=" + CodAsig +
+                '}';
+    }
+
     public String getNIFProfe() {
         return NIFProfe;
     }
 
-    public void validarNIFProfe(String NIFProfe) {
+    public boolean validarNIFProfe(String NIFProfe) {
         if (NIFProfe.matches("\\d{7}\\w[A-Z]")){
             this.NIFProfe=NIFProfe;
-            System.out.println("El NIF es correcto");
+            return true;
         } else {
-            System.out.println("El NIF no es valido");
+            return false;
         }
     }
 
@@ -34,29 +127,29 @@ public class Profesor {
         return FechNaProfe;
     }
 
-    public void validarFechNaProfe(String fechNaProfe) {
+    public boolean validarFechNaProfe(String fechNaProfe) {
 
         if (fechNaProfe.matches("\\d{2}" + "/" + "\\d{2}" + "/" + "\\d{4}")) {
             String[] partido = fechNaProfe.split("/");
             int dia = Integer.parseInt(partido[0]);
             if (dia > 31 || dia <= 0) {
-                System.out.println("El dia de la fecha no es correcto");
+                return false;
             } else {
                 int mes = Integer.parseInt(partido[1]);
                 if (mes > 12) {
-                    System.out.println("El mes de la fecha no es correcto");
+                   return false;
                 } else {
                     int anyo = Integer.parseInt(partido[2]);
                     if (anyo > 2025 || anyo < 1930) {
-                        System.out.println("El año de la fecha no es valido");
+                        return false;
                     } else {
-                        System.out.println("La fecha es correcta");
+                        return true;
                     }
                 }
             }
             }
         else {
-            System.out.println("La fecha no es valida");
+            return false;
         }
     }
 
@@ -64,12 +157,12 @@ public class Profesor {
         return NomComProfe;
     }
 
-    public void validarNomComProfe(String nomComProfe) {
+    public boolean validarNomComProfe(String nomComProfe) {
         if (nomComProfe.matches("\\w[A-Za-z]+"+" "+"\\w[A-Za-z]+")){
             this.NomComProfe=nomComProfe;
-            System.out.println("El nombre es correcto");
+            return true;
         } else {
-            System.out.println("El nombre no es valido");
+            return false;
         }
     }
 
@@ -77,12 +170,12 @@ public class Profesor {
         return TelProfe;
     }
 
-    public void validfarTelProfe(String telProfe) {
+    public boolean validfarTelProfe(String telProfe) {
         if (telProfe.matches("\\d{9}")){
             this.TelProfe=telProfe;
-            System.out.println("El telefono es correcto");
+            return true;
         }else {
-            System.out.println("El telefono no es valido");
+            return false;
         }
     }
 
@@ -90,12 +183,12 @@ public class Profesor {
         return calle;
     }
 
-    public void validarCalle(String calle) {
+    public boolean validarCalle(String calle) {
         if (calle.matches("\\w[A-Za-z]+")){
             this.calle=calle;
-            System.out.println("La calle es correcta");
+           return true;
         } else {
-            System.out.println("La calle no es valida");
+            return false;
         }
     }
 
@@ -103,12 +196,12 @@ public class Profesor {
         return NumPostigo;
     }
 
-    public void validarNumPostigo(String numPostigo) {
+    public boolean validarNumPostigo(String numPostigo) {
         if (numPostigo.matches("\\d+\\w?")){
             this.NumPostigo=numPostigo;
-            System.out.println("El numero de postigo es correcto");
+            return true;
         } else {
-            System.out.println("El numero del postigo no es valido");
+            return false;
         }
     }
 
@@ -116,12 +209,12 @@ public class Profesor {
         return CodAsig;
     }
 
-    public void validarCodAsig(int codAsig) {
+    public boolean validarCodAsig(int codAsig) {
         if (codAsig>0){
             this.CodAsig=codAsig;
-            System.out.println("El codigo de la asignatura es correcto");
+            return true;
         } else {
-            System.out.println("El codigo de la asignatura no es valido");
+            return false;
         }
     }
 }
