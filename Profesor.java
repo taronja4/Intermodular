@@ -27,10 +27,6 @@ public class Profesor {
         CodAsig = codAsig;
     }
 
-
-
-
-
     public void menu(){
         System.out.println("0. salir");
         System.out.println("1. añadir nuevo profesor");
@@ -121,7 +117,7 @@ public class Profesor {
     }
 
     public boolean validarNIFProfe(String NIFProfe) {
-        if (NIFProfe.matches("\\d{7}\\w[A-Z]")){
+        if (NIFProfe.matches("\\d{7}\\w[A-Za-z]")){
             this.NIFProfe=NIFProfe;
             return true;
         } else {
@@ -164,12 +160,17 @@ public class Profesor {
     }
 
     public boolean validarNomComProfe(String nomComProfe) {
-        if (nomComProfe.matches("\\w[A-Za-z]+"+" "+"\\w[A-Za-z]+")){
-            this.NomComProfe=nomComProfe;
-            return true;
-        } else {
+        if (nomComProfe.isEmpty()){
+            System.out.println("El nombre no puede estar vacio");
             return false;
         }
+        for (char d:nomComProfe.toCharArray()){
+            if (!Character.isLetter(d)&& d!=' '){
+                System.out.println("Error, el nombre solo puede tener letras y espacios");
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getTelProfe() {
@@ -190,12 +191,17 @@ public class Profesor {
     }
 
     public boolean validarCalle(String calle) {
-        if (calle.matches("\\w[A-Za-z]+")){
-            this.calle=calle;
-            return true;
-        } else {
+        if (calle.isEmpty()){
+            System.out.println("La calle no puede estar vacia");
             return false;
         }
+        for (char d:calle.toCharArray()){
+            if (!Character.isLetter(d)&& d!=' '){
+                System.out.println("Error, la calle solo puede tener letras y espacios");
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getNumPostigo() {
@@ -229,79 +235,59 @@ public class Profesor {
     public Profesor insertarProfe(){
         Scanner sc=new Scanner(System.in);
         System.out.println("Inserta un nif para un profesor(8 digitos y una letra[A-Z])");
-        String nif = sc.next();
-        sc.nextLine();
+        String nif = sc.nextLine();
         if (!validarNIFProfe(nif)) {
             do {
                 System.out.println("Inserta un nif valido(8 digitos y una letra[A-Z])");
-                nif = sc.next();
-                sc.nextLine();
+                nif = sc.nextLine();
             } while (!validarNIFProfe(nif));
         }
         for (Profesor profesor:profesores){
             if (Objects.equals(nif, profesor.NIFProfe)){
                 do {
                     System.out.println("Inserta un nif valido o que no este en tu lista");
-                    nif=sc.next();
+                    nif=sc.nextLine();
                 }while (Objects.equals(nif, profesor.NIFProfe)||!validarNIFProfe(nif));
             }
         }
         System.out.println("Introduce el nombre profesor(Solo letras)");
-        String nom = sc.next();
-        sc.nextLine();
-        System.out.println("Introduce el apellido de un profesor(Solo letras)");
-        String ape=sc.next();
-        sc.nextLine();
-        String nomape=nom.concat(" "+ape);
-        if (!validarNomComProfe(nomape)) {
+        String nom = sc.nextLine();
+        if (!validarNomComProfe(nom)) {
             do {
                 System.out.println("Introduce el nombre profesor(Solo letras)");
-                nom = sc.next();
-                sc.nextLine();
-                System.out.println("Introduce el apellido de un profesor(Solo letras)");
-                ape=sc.next();
-                sc.nextLine();
-                nomape=nom.concat(" "+ape);
-            } while (!validarNomComProfe(nomape));
+                nom = sc.nextLine();
+            } while (!validarNomComProfe(nom));
         }
         System.out.println("Introduce la fecha de nacimiento de un profesor(xx/xx/xxxx)");
-        String fecnaProfe = sc.next();
-        sc.nextLine();
+        String fecnaProfe = sc.nextLine();
         if (!validarFechNaProfe(fecnaProfe)) {
             do {
                 System.out.println("Introduce la fecha de nacimiento de un profesor(xx/xx/xxxx)");
-                fecnaProfe = sc.next();
-                sc.nextLine();
+                fecnaProfe = sc.nextLine();
             } while (!validarFechNaProfe(fecnaProfe));
         }
         System.out.println("Introduce un telefono para un profesor(9 digitos)");
-        String tel = sc.next();
-        sc.nextLine();
+        String tel = sc.nextLine();
         if (!validfarTelProfe(tel)) {
             do {
                 System.out.println("Introduce un telefono para un profesor(9 digitos)");
-                tel = sc.next();
-                sc.nextLine();
+                tel = sc.nextLine();
             } while (!validfarTelProfe(tel));
         }
         System.out.println("Introduce una calle para un profesor(Solo letras)");
-        String calle = sc.next();
-        sc.nextLine();
+        String calle = sc.nextLine();
         if (!validarCalle(calle)) {
             do {
                 System.out.println("Introduce un calle para un profesor(Solo letras)");
-                calle = sc.next();
-                sc.nextLine();
+                calle = sc.nextLine();
             } while (!validarCalle(calle));
         }
         System.out.println("Introduce un numero de postigo para un profesor(numeros y una letra como maximo)");
-        String numpos = sc.next();
-        sc.nextLine();
+        String numpos = sc.nextLine();
         if (!validarNumPostigo(numpos)) {
             do {
                 System.out.println("Introduce un numero de postigo para un profesor(numeros y una letra como maximo)");
-                numpos = sc.next();
-                sc.nextLine();
+                numpos = sc.nextLine();
             } while (!validarNumPostigo(numpos));
         }
         int codas2=0;
@@ -317,9 +303,7 @@ public class Profesor {
                     sc.nextLine();
                 }
             } while (boo);
-
-
-        Profesor pepe = new Profesor(nif, fecnaProfe, nomape, tel, calle, numpos, codas2);
+        Profesor pepe = new Profesor(nif, fecnaProfe, nom, tel, calle, numpos, codas2);
         return pepe;
 
     }
