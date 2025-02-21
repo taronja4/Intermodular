@@ -16,36 +16,47 @@ public class mianPro {
                         break;
                     case 1:
                         p.addNewProfe(p.insertarProfe());
-
                         break;
                     case 2:
-                        System.out.println("Introduce el nif del profesor que quieres eliminar");
-                        String stutu=sc.next();
-                        sc.nextLine();
-                        if (p.queryProfe(stutu)!=null){
-                            p.removeProfe(p.queryProfe(stutu));
+                        if (p.profesores.isEmpty()){
+                            System.out.println("No hay profesores en tu lista");
                         } else {
-                            System.out.println("El profesor con ese nif no esta en tu lista");
+                            System.out.println("Introduce el nif del profesor que quieres eliminar");
+                            String stutu=sc.next();
+                            sc.nextLine();
+                            if (p.queryProfe(stutu)!=null){
+                                p.removeProfe(p.queryProfe(stutu));
+                            } else {
+                                System.out.println("El profesor con ese nif no esta en tu lista");
+                            }
                         }
                         break;
                     case 3:
-                        System.out.println("Introduce el nif del profesor que quieres actualizar");
-                        String nifo=sc.next();
-                        sc.nextLine();
-                        if (p.queryProfe(nifo)!=null){
-                            p.updateProfe(p.queryProfe(nifo),p.insertarProfe());
+                        if (p.profesores.isEmpty()){
+                            System.out.println("No hay profesores en tu lista");
                         } else {
-                            System.out.println("El profesor con ese nif no esta en tu lista");
+                            System.out.println("Introduce el nif del profesor que quieres actualizar");
+                            String nifo=sc.next();
+                            sc.nextLine();
+                            if (p.queryProfe(nifo)!=null){
+                                p.updateProfe(p.queryProfe(nifo),p.insertarProfe());
+                            } else {
+                                System.out.println("El profesor con ese nif no esta en tu lista");
+                            }
                         }
                         break;
                     case 4:
-                        System.out.println("Introduce el nif del profesor que quieres buscar");
-                        String pp=sc.next();
-                        sc.nextLine();
-                        if (p.queryProfe(pp)!=null){
-                            System.out.println(p.queryProfe(pp));
+                        if (p.profesores.isEmpty()){
+                            System.out.println("No hay profesores en tu lista");
                         } else {
-                            System.out.println("El profesor con ese nif no esta en tu lista");
+                            System.out.println("Introduce el nif del profesor que quieres buscar");
+                            String pp=sc.next();
+                            sc.nextLine();
+                            if (p.queryProfe(pp)!=null){
+                                System.out.println(p.queryProfe(pp));
+                            } else {
+                                System.out.println("El profesor con ese nif no esta en tu lista");
+                            }
                         }
                         break;
                     case 5:
