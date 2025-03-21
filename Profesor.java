@@ -27,6 +27,10 @@ public class Profesor {
         CodAsig = codAsig;
     }
 
+
+
+
+
     public void menu(){
         System.out.println("0. salir");
         System.out.println("1. añadir nuevo profesor");
@@ -92,24 +96,24 @@ public class Profesor {
     }
 
     public void printProfes(){
-        int cont=1;
-        System.out.println("Lista de profesores");
+
         for (Profesor pro:profesores){
-            System.out.println(cont+" "+pro);
+            System.out.println(" "+pro);
+
         }
     }
 
     @Override
     public String toString() {
-        return "Profesor{" +
-                "NIFProfe='" + NIFProfe + '\'' +
-                ", FechNaProfe='" + FechNaProfe + '\'' +
-                ", NomComProfe='" + NomComProfe + '\'' +
-                ", TelProfe='" + TelProfe + '\'' +
-                ", calle='" + calle + '\'' +
-                ", NumPostigo='" + NumPostigo + '\'' +
-                ", CodAsig=" + CodAsig +
-                '}';
+        return "   <profesor>"+'\n'+
+                "          <nifProfe>"+NIFProfe+"</nifProfe>"+'\n'+
+                "          <FechNaProfe>"+FechNaProfe+"</FechNaProfe>"+'\n'+
+                "          <nomComProfe>"+NomComProfe+"</nomComProfe>"+'\n'+
+                "          <TelProfe>"+TelProfe+"</TelProfe>"+'\n'+
+                "          <Calle>"+calle+"</Calle>"+'\n'+
+                "          <NumPostigo>"+NumPostigo+"</NumPostigo>"+'\n'+
+                "          <CodAsig>"+CodAsig+"</CodAsig>"+'\n'+
+                "  </profesor>";
     }
 
     public String getNIFProfe() {
@@ -303,6 +307,8 @@ public class Profesor {
                     sc.nextLine();
                 }
             } while (boo);
+
+
         Profesor pepe = new Profesor(nif, fecnaProfe, nom, tel, calle, numpos, codas2);
         return pepe;
 
