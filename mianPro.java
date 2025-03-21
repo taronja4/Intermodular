@@ -6,6 +6,17 @@ public class mianPro {
         boolean boo=true;
         Profesor p=new Profesor();
         Scanner sc=new Scanner(System.in);
+
+        Profesor p1=new Profesor("23478954P","1985-01-10","María López","600123456","Gran Vía","12",1);
+        Profesor p2=new Profesor("27350978U","1978-05-23","Juan García","600234567","Paseo del prado","5B",2);
+        Profesor p3=new Profesor("62354692E","1982-11-02","Lucía Pérez","600345678","Calle Alcalá","3A",3);
+        Profesor p4=new Profesor("23810293B","1990-07-19","Pedro Sánchez","600456789","Avenida America","49",4);
+        Profesor p5=new Profesor("12930865L","1987-03-29","Ana Martínez","600567890","Calle Serrano","8",5);
+        p.addNewProfe(p1);
+        p.addNewProfe(p2);
+        p.addNewProfe(p3);
+        p.addNewProfe(p4);
+        p.addNewProfe(p5);
         do {
                 p.menu();
                 int opcion=sc.nextInt();
@@ -60,7 +71,9 @@ public class mianPro {
                         }
                         break;
                     case 5:
+                        System.out.println("<profesores>");
                         p.printProfes();
+                        System.out.println("</profesores>");
                         break;
                     default:
                         System.out.println("Introduce un numero valido");
@@ -69,3 +82,4 @@ public class mianPro {
         }while (boo);
     }
 }
+
