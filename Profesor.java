@@ -102,12 +102,7 @@ public class Profesor {
             PrintStream xd=new PrintStream("C:/Users/adria/OneDrive/Escritorio/profes/profes.txt");
             xd.println("<profesores>");
             for (Profesor p:profesores){
-                Class<?> c=p.getClass();
-                xd.println("  <profesor>");
-                for (int i=0;i<c.getDeclaredFields().length-1;i++) {
-                    xd.println("\t"+ "   <"+c.getDeclaredFields()[i].getName()+ ">"+c.getDeclaredFields()[i].get(p)+"</"+c.getDeclaredFields()[i].getName()+">");
-                }
-                xd.println("  </profesor>");
+                xd.println(p);
             }
             xd.println("</profesores>");
         }catch (Exception e){
