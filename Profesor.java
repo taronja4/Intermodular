@@ -1,3 +1,4 @@
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -37,7 +38,7 @@ public class Profesor {
         System.out.println("2. eliminar profesor");
         System.out.println("3. Actualizar profesor");
         System.out.println("4. Buscar profe por nif");
-        System.out.println("5 imprimir lista de profesores");
+        System.out.println("5 imprimir lista de profesores en formato xml en un archivo de texto");
     }
 
     private int findProfe(Profesor po){
@@ -96,10 +97,15 @@ public class Profesor {
     }
 
     public void printProfes(){
-
-        for (Profesor pro:profesores){
-            System.out.println(" "+pro);
-
+        try {
+            PrintStream xd=new PrintStream("C:/Users/adria/OneDrive/Escritorio/profes/profes.txt");
+            xd.println("<profesores>");
+            for (Profesor p:profesores){
+                xd.println(p);
+            }
+            xd.println("</profesores>");
+        }catch (Exception e){
+            System.out.println("Error");
         }
     }
 
@@ -296,21 +302,22 @@ public class Profesor {
         }
         int codas2=0;
         boolean boo=true;
-            do {
-                try{
-                    System.out.println("Introduce un codigo de asignatura para un profesor(solo digitos)");
-                    codas2 = sc.nextInt();
-                    sc.nextLine();
-                    boo=false;
-                }catch (InputMismatchException e){
-                    System.out.println("error");
-                    sc.nextLine();
-                }
-            } while (boo);
+        do {
+            try{
+                System.out.println("Introduce un codigo de asignatura para un profesor(solo digitos)");
+                codas2 = sc.nextInt();
+                sc.nextLine();
+                boo=false;
+            }catch (InputMismatchException e){
+                System.out.println("error");
+                sc.nextLine();
+            }
+        } while (boo);
 
 
         Profesor pepe = new Profesor(nif, fecnaProfe, nom, tel, calle, numpos, codas2);
         return pepe;
 
     }
+
 }
