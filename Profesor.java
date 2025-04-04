@@ -1,4 +1,5 @@
 import java.io.PrintStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -101,7 +102,12 @@ public class Profesor {
             PrintStream xd=new PrintStream("C:/Users/adria/OneDrive/Escritorio/profes/profes.txt");
             xd.println("<profesores>");
             for (Profesor p:profesores){
-                xd.println(p);
+                Class<?> c=p.getClass();
+                xd.println("  <profesor>");
+                for (int i=0;i<c.getDeclaredFields().length-1;i++) {
+                    xd.println("\t"+ "   <"+c.getDeclaredFields()[i].getName()+ ">"+c.getDeclaredFields()[i].get(p)+"</"+c.getDeclaredFields()[i].getName()+">");
+                }
+                xd.println("  </profesor>");
             }
             xd.println("</profesores>");
         }catch (Exception e){
